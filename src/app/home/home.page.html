@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Perfumados</ion-title>
+    <ion-buttons slot="end">
+      <!-- Botón de carrito -->
+      <ion-button (click)="goToCart()">
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+      <!-- Botón de login -->
+      <ion-button (click)="goToLogin()">Login</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="hero-section">
+    <h1>Bienvenido a Perfumados</h1>
+    <p>Descubre fragancias únicas que cuentan tu historia.</p>
+  </div>
+
+  <!-- Campo de búsqueda -->
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterPerfumes()" placeholder="Buscar por nombre"></ion-searchbar>
+
+  <ion-grid class="product-grid">
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let perfume of filteredPerfumes">
+        <ion-card class="glass-card">
+          <img [src]="perfume.imageUrl" [alt]="perfume.name" />
+          <ion-card-header>
+            <ion-card-title>{{ perfume.name }}</ion-card-title>
+            <ion-card-subtitle>{{ perfume.brand }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{ perfume.description }}</p>
+            <p>Cantidad: {{ perfume.cantidad }}</p>
+            <!-- Selector de cantidad -->
+            <ion-item>
+              <ion-label>Cantidad:</ion-label>
+              <ion-select [(ngModel)]="perfume.selectcantidad" placeholder="Seleccione">
+                <ion-select-option *ngFor="let qty of getQuantityOptions(perfume.cantidad)" [value]="qty">{{ qty }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-button expand="full" color="light" class="buy-button" (click)="addToCart(perfume)">Comprar</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

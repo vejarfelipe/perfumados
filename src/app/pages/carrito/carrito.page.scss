@@ -1,0 +1,87 @@
+ion-header {
+    ion-toolbar {
+      --background: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+      backdrop-filter: blur(10px); /* Efecto de desenfoque */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+  
+      ion-title {
+        color: #fff; /* Texto blanco */
+        font-weight: bold;
+      }
+    }
+  }
+  
+  ion-content {
+    --background: linear-gradient(135deg, #6a11cb, #2575fc); /* Fondo degradado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .glass-list {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+    backdrop-filter: blur(15px); /* Efecto de desenfoque */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    padding: 10px;
+  }
+  
+  .glass-item {
+    --background: transparent; /* Fondo transparente */
+    --border-color: rgba(255, 255, 255, 0.2); /* Color del borde */
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 10px;
+  
+    ion-label {
+      h2 {
+        color: #fff; /* Texto blanco */
+        font-weight: bold;
+      }
+  
+      p {
+        color: rgba(255, 255, 255, 0.8); /* Texto semitransparente */
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .checkout-button {
+    --background: rgba(255, 255, 255, 0.2); /* Fondo semitransparente */
+    --color: #fff; /* Texto blanco */
+    --border-radius: 10px;
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+    margin-top: 20px;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      --background: rgba(255, 255, 255, 0.3); /* Efecto hover */
+      transform: scale(1.05);
+    }
+  }
+  ion-header {
+    ion-toolbar {
+      --background: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+      backdrop-filter: blur(10px); /* Efecto de desenfoque */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+  
+      ion-title {
+        color: #fff; /* Texto blanco */
+        font-weight: bold;
+      }
+  
+      ion-button {
+        --color: #fff; /* Texto blanco */
+        --background: rgba(255, 255, 255, 0.2); /* Fondo semitransparente */
+        --border-radius: 10px;
+        backdrop-filter: blur(10px); /* Efecto de desenfoque */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+        margin-right: 8px; /* Espacio entre botones */
+      }
+    }
+  }
