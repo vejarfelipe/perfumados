@@ -1,0 +1,32 @@
+
+
+<ion-content [fullscreen]="true">
+  <div class="register-container">
+    <ion-card class="glass-card">
+      <ion-card-header>
+        <ion-card-title>Crear una cuenta</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Campo de correo electrónico -->
+        <ion-item class="glass-input">
+          <ion-label position="stacked">Correo electrónico</ion-label>
+          <ion-input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo"></ion-input>
+        </ion-item>
+
+        <!-- Campo de contraseña -->
+        <ion-item class="glass-input">
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña"></ion-input>
+        </ion-item>
+
+        <!-- Botón de registro -->
+        <ion-button expand="full" (click)="register()" class="register-button">Registrarse</ion-button>
+
+        <!-- Enlace para ir al login -->
+        <ion-text class="login-link">
+          ¿Ya tienes una cuenta? <a (click)="goToLogin()">Inicia sesión</a>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

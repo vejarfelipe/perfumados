@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, 
-  IonInput,IonButton, IonLabel,IonItem,IonCardContent,IonCardTitle } from '@ionic/angular/standalone';
+  IonInput,IonButton, IonLabel,IonItem,IonCardContent,IonCardTitle, IonText } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonInput, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, 
+  imports: [IonText, IonInput, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, 
     IonItem, IonLabel, IonButton, CommonModule, FormsModule, IonCardContent, IonCardTitle]
 })
 export class LoginPage implements OnInit {
@@ -39,5 +39,9 @@ export class LoginPage implements OnInit {
       console.error('Error al iniciar sesión:', error);
       alert('Credenciales incorrectas. Inténtalo de nuevo.'); // Mensaje de error
     }
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 }

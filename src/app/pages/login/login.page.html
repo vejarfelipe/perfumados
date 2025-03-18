@@ -17,6 +17,11 @@
         </ion-item>
 
         <ion-button expand="full" class="login-button" (click)="login()">Iniciar sesión</ion-button>
+
+        <!-- Enlace para ir a la página de registro -->
+        <ion-text class="register-link">
+          ¿No tienes una cuenta? <a (click)="goToRegister()">Regístrate</a>
+        </ion-text>
       </ion-card-content>
     </ion-card>
   </div>
