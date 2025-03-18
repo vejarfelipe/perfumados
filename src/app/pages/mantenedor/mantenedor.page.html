@@ -1,10 +1,20 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="glass-header">
     <ion-title>Mantenedor de Perfumes</ion-title>
+    <ion-buttons slot="start">
+      <!-- Botón para regresar al home -->
+      <ion-button (click)="goToHome()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!-- Campo de búsqueda -->
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterPerfumes()" placeholder="Buscar por nombre" class="glass-searchbar"></ion-searchbar>
+
+  <!-- Formulario para agregar/editar perfumes -->
   <ion-card class="glass-card">
     <ion-card-header>
       <ion-card-title>{{ isEditing ? 'Editar Perfume' : 'Agregar Perfume' }}</ion-card-title>
@@ -47,18 +57,13 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- Lista de perfumes -->
   <ion-list>
-    <ion-item *ngFor="let perfume of perfumes" class="glass-card">
-      <ion-thumbnail slot="start">
-        <img [src]="perfume.imageUrl" [alt]="perfume.name" />
-      </ion-thumbnail>
+    <ion-item *ngFor="let perfume of filteredPerfumes" class="glass-card perfume-item">
       <ion-label>
-        <h2>{{ perfume.name }}</h2>
-        <p>{{ perfume.brand }}</p>
-        <p>{{ perfume.description }}</p>
-        <p>Cantidad: {{ perfume.cantidad }}</p>
+        <h2 class="perfume-name">{{ perfume.name }}</h2>
       </ion-label>
-      <ion-button (click)="editPerfume(perfume)">Editar</ion-button>
+      <ion-button (click)="editPerfume(perfume)" class="select-button">Seleccionar</ion-button>
       <ion-button color="danger" (click)="deletePerfume(perfume.id!)">Eliminar</ion-button>
     </ion-item>
   </ion-list>

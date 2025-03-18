@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonList, IonThumbnail, IonTextarea } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonList, IonThumbnail, IonTextarea, IonSearchbar, IonButtons, IonIcon } from '@ionic/angular/standalone';
 import { PerfumeService } from '../../services/perfume.service';
 import { Perfume } from '../../models/perfume.model';
 
@@ -10,14 +11,16 @@ import { Perfume } from '../../models/perfume.model';
   templateUrl: './mantenedor.page.html',
   styleUrls: ['./mantenedor.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonList, IonThumbnail, IonTextarea, CommonModule, FormsModule],
+  imports: [IonIcon, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonList, IonThumbnail, IonTextarea, IonSearchbar, CommonModule, FormsModule],
 })
 export class MantenedorPage implements OnInit {
   perfumes: Perfume[] = [];
-  perfume: Perfume = { name: '', brand: '', description: '', imageUrl: '', cantidad: 0,precio:0 };
+  filteredPerfumes: Perfume[] = [];
+  perfume: Perfume = { name: '', brand: '', description: '', imageUrl: '', cantidad: 0, precio: 0 };
   isEditing = false;
+  searchTerm = '';
 
-  constructor(private perfumeService: PerfumeService) {}
+  constructor(private perfumeService: PerfumeService, private router: Router) {}
 
   ngOnInit() {
     this.loadPerfumes();
@@ -27,7 +30,20 @@ export class MantenedorPage implements OnInit {
   async loadPerfumes() {
     this.perfumeService.getPerfumes().subscribe((data) => {
       this.perfumes = data;
+      this.filteredPerfumes = data;
     });
+  }
+
+  // Filtrar perfumes por nombre
+  filterPerfumes() {
+    this.filteredPerfumes = this.perfumes.filter(perfume =>
+      perfume.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  // Regresar al home
+  goToHome() {
+    this.router.navigate(['/home']);
   }
 
   // Agregar un nuevo perfume
@@ -60,7 +76,7 @@ export class MantenedorPage implements OnInit {
 
   // Reiniciar el formulario
   resetForm() {
-    this.perfume = { name: '', brand: '', description: '', imageUrl: '', cantidad: 0,precio:0 };
+    this.perfume = { name: '', brand: '', description: '', imageUrl: '', cantidad: 0, precio: 0 };
     this.isEditing = false;
   }
 }
