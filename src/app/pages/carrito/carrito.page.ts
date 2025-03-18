@@ -1,33 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Importa Router
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButton, IonIcon, IonButtons } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButton, IonIcon, IonButtons, IonThumbnail, IonInput } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
-import { CartService } from 'src/app/services/carrito.service'; // Importa el servicio del carrito
-import { PerfumeService } from 'src/app/services/perfume.service'; // Importa el servicio de perfumes
-import { addIcons } from 'ionicons'; // Importa addIcons para usar iconos
-import { homeOutline } from 'ionicons/icons'; // Importa el ícono de home
+import { FormsModule } from '@angular/forms';
+import { CartService } from 'src/app/services/carrito.service';
+import { PerfumeService } from 'src/app/services/perfume.service';
+import { addIcons } from 'ionicons';
+import { homeOutline, trashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
   styleUrls: ['./carrito.page.scss'],
   standalone: true,
-  imports: [IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, IonList, IonItem, IonLabel, IonButton, IonIcon],
+  imports: [IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, IonList, IonItem, IonLabel, IonButton, IonIcon, IonThumbnail, IonInput, FormsModule],
 })
 export class CarritoPage implements OnInit {
   cartItems: any[] = []; // Items del carrito
+  total: number = 0; // Total de la compra
 
   constructor(
     private cartService: CartService,
-    private perfumeService: PerfumeService, // Inyecta el servicio de perfumes
-    private router: Router // Inyecta Router
+    private perfumeService: PerfumeService,
+    private router: Router
   ) {
-    addIcons({ homeOutline }); // Añade el ícono de home
+    addIcons({ homeOutline, trashOutline }); // Añade los íconos
   }
 
   ngOnInit() {
-    // Obtener los items del carrito al iniciar la página
     this.cartItems = this.cartService.getCartItems();
+    this.calculateTotal();
+  }
+
+  // Calcular el total de la compra
+  calculateTotal() {
+    this.total = this.cartItems.reduce((sum, item) => sum + item.precio * item.selectcantidad, 0);
+  }
+
+  // Actualizar el total cuando cambia la cantidad
+  updateTotal() {
+    this.calculateTotal();
+  }
+
+  // Eliminar un producto del carrito
+  removeItem(item: any) {
+    this.cartService.removeFromCart(item);
+    this.cartItems = this.cartService.getCartItems();
+    this.calculateTotal();
   }
 
   // Regresar al home
@@ -48,6 +67,7 @@ export class CarritoPage implements OnInit {
     // Limpiar el carrito
     this.cartService.clearCart();
     this.cartItems = []; // Limpiar la lista local
+    this.total = 0; // Reiniciar el total
 
     // Redirigir al home
     this.router.navigate(['/home']);

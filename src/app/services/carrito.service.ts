@@ -32,6 +32,13 @@ export class CartService {
     return this.cartItems.getValue();
   }
 
+  // Eliminar un producto del carrito
+  removeFromCart(item: Perfume) {
+    const currentItems = this.cartItems.getValue();
+    const updatedItems = currentItems.filter((cartItem) => cartItem.id !== item.id); // Filtra el producto a eliminar
+    this.cartItems.next(updatedItems); // Actualiza la lista de productos
+  }
+
   // Limpiar el carrito
   clearCart() {
     this.cartItems.next([]);
